@@ -1,0 +1,65 @@
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
+    Cocur\Slugify\Slugify:
+        autowire: false
+
+    #cache
+    app.cache.adapter.default:
+        class: App\Cache\Adapter\Redis
+        public: false
+        arguments:
+            $redisClient: '@snc_redis.cache'
+            $namespace: 'quote'
+
+    App\Cache\Type\QuoteType:
+        arguments:
+            $adapter: '@app.cache.adapter.default'
+
+    App\Contract\Data\CacheWranglerInterface:
+        class: App\Data\CacheWrangler
+
+    App\Data\CacheWrangler:
+        arguments:
+            $cacheType: '@App\Cache\Type\QuoteType'
+
+    # providers
+    App\Data\Provider\CacheProvider:
+        tags:
+            - { name: 'quote.provider', priority: 100}
+
+    App\Data\Provider\LocalQuoteProvider:
+        tags:
+            - { name: 'quote.provider', priority: -100}
+
+    App\Data\Provider\Pool:
+        arguments:
+            $providers: !tagged quote.provider
+
+    # repositories
+    App\Contract\Repository\QuoteRepositoryInterface:
+        class: App\Repository\QuoteRepository
+
+    App\Contract\Repository\AuthorRepositoryInterface:
+        class: App\Repository\AuthorRepository
+
+    # messaging
+    App\MessageHandler\QuoteMessageHandler:
+        arguments:
+            $cacheType: '@App\Cache\Type\QuoteType'

@@ -1,0 +1,26 @@
+snc_redis:
+    clients:
+        default:
+            type: predis
+            alias: default
+            dsn: '%env(resolve:REDIS_URL)%/2'
+            logging: '%kernel.debug%'
+        cache:
+            type: predis
+            alias: cache
+            dsn: '%env(resolve:REDIS_URL)%/4'
+            options:
+                profile: 2.2
+                connection_timeout: 10
+                read_write_timeout: 30
+        monolog:
+            type: predis
+            alias: monolog
+            dsn: '%env(resolve:REDIS_URL)%/1'
+            logging: false
+            options:
+                connection_persistent: true
+
+    monolog:
+        client: monolog
+        key: monolog
