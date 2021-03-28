@@ -51,7 +51,6 @@ final class Quotes
     /**
      * @throws NonUniqueResultException
      * @throws CouldNotSaveException
-     * @throws ToolsException
      * @SuppressWarnings(SuperGlobals)
      */
     public function install()

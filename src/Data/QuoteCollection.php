@@ -46,14 +46,6 @@ final class QuoteCollection implements QuoteCollectionInterface
     /**
      * @inheritDoc
      */
-    public function getCount(): int
-    {
-        return $this->storage->count();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getCriteria(): CriteriaInterface
     {
         return $this->criteria;
@@ -74,5 +66,13 @@ final class QuoteCollection implements QuoteCollectionInterface
         }
 
         return $flat;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function count(): int
+    {
+        return $this->storage->count();
     }
 }

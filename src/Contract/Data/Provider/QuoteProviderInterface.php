@@ -19,7 +19,7 @@ interface QuoteProviderInterface
      * @param CriteriaInterface $criteria
      * @return bool
      */
-    public static function supports(CriteriaInterface $criteria): bool;
+    public function supports(CriteriaInterface $criteria): bool;
 
     /**
      * @return string

@@ -13,7 +13,7 @@ use App\Contract\Search\CriteriaInterface;
  * @package App\Data\Provider
  * @SuppressWarnings(Static)
  */
-final class Pool
+class Pool
 {
     /**
      * @var QuoteProviderInterface[]
@@ -39,10 +39,10 @@ final class Pool
         $collection = null;
 
         foreach ($this->providers as $provider) {
-            if ($provider::supports($criteria)) {
+            if ($provider->supports($criteria)) {
                 $collection = $provider->fetch($criteria);
 
-                if ($collection->getCount()) {
+                if ($collection->count()) {
                     break;
                 }
             }

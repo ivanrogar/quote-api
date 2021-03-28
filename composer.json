@@ -43,6 +43,7 @@
         "behatch/contexts": "^3.3",
         "friends-of-behat/mink-browserkit-driver": "^1.5",
         "friends-of-behat/symfony-extension": "^2.2",
+        "phpspec/phpspec": "^7.0",
         "symfony/phpunit-bridge": "^5.2"
     },
     "config": {
@@ -78,13 +79,14 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "behat": [
+        "tests": [
             "bin/console c:c --env=test",
             "bin/console d:d:c --env=test --if-not-exists",
             "bin/console d:s:d -f --env=test",
             "bin/console d:s:u -f --env=test",
             "bin/console app:install --env=test",
-            "APP_ENV=test behat --colors"
+            "APP_ENV=test behat --colors",
+            "APP_ENV=test phpspec run"
         ]
     },
     "conflict": {

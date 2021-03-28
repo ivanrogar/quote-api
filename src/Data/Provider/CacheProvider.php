@@ -34,7 +34,7 @@ final class CacheProvider implements QuoteProviderInterface
     /**
      * @inheritDoc
      */
-    public static function supports(CriteriaInterface $criteria): bool
+    public function supports(CriteriaInterface $criteria): bool
     {
         return true;
     }

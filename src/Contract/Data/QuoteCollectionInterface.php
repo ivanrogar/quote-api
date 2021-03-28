@@ -6,22 +6,18 @@ namespace App\Contract\Data;
 
 use App\Contract\Search\CriteriaInterface;
 use Iterator;
+use Countable;
 
 /**
  * Interface QuoteCollectionInterface
  * @package App\Contract\Data
  */
-interface QuoteCollectionInterface
+interface QuoteCollectionInterface extends Countable
 {
     /**
      * @return Iterator|QuoteInterface[]
      */
     public function getItems();
-
-    /**
-     * @return int
-     */
-    public function getCount(): int;
 
     /**
      * @return CriteriaInterface

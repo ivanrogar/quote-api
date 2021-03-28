@@ -28,4 +28,4 @@
 /behat.yml
 ###< friends-of-behat/symfony-extension ###
 
-./.idea/*
+!./.idea/inspectionProfiles/*
